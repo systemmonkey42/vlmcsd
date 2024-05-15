@@ -48,13 +48,14 @@
 #include "types.h"
 #include "kms.h"
 
-#define MIN_CSVLK 5
+//#define MIN_CSVLK 6
 typedef struct
 {
 	const char* Epid;
 	const BYTE* HwId;
 	#ifndef NO_LOG
 	const char* EpidSource;
+	uint8_t IsRandom;
 	#endif // NO_LOG
 } KmsResponseParam_t, *PKmsResponseParam_t;
 
@@ -162,9 +163,14 @@ extern int_fast8_t logverbose;
 #endif
 #endif
 
+#if !defined(USE_MSRPC) && !defined(SIMPLE_RPC)
+extern uint8_t IsNDR64Defined;
+#endif 
+
 #ifndef NO_RANDOM_EPID
 extern int_fast8_t RandomizationLevel;
 extern uint16_t Lcid;
+extern uint16_t HostBuild;
 #endif
 
 #if !defined(NO_SOCKETS) && !defined(USE_MSRPC)
